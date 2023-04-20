@@ -2,7 +2,9 @@ variable "cluster_name" {
   type        = string
   description = "eks clsuter name"
 }
-
+variable "eks_cluster_name"{
+    type = string
+}
 variable "vpc_name" {
   type        = string
   description = "Name of VPC"
@@ -30,7 +32,7 @@ variable "availability_zones" {
 
 
 variable "instance_types" {
-  type        = list(string)
+  type        = string
   description = "List of instance types associated with the EKS Node Group"
 }
 
