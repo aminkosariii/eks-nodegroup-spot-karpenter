@@ -22,6 +22,9 @@ resource "aws_iam_role_policy_attachment" "amazon-eks-cluster-policy" {
   role       = aws_iam_role.eks-cluster.name
 }
 
+locals {
+    all_subnets = concat(var.public_subnets, var.private_subnets)
+}
 resource "aws_eks_cluster" "cluster" {
   name     = var.cluster_name
   version  = "1.22"
@@ -33,10 +36,7 @@ resource "aws_eks_cluster" "cluster" {
     endpoint_public_access  = true
     public_access_cidrs     = ["0.0.0.0/0"]
 
-    subnet_ids = [
-      element(aws_subnet.pub_subnet.*.id, count.index),
-      element(aws_subnet.priv_subnet.*.id, count.index)
-    ]
+    subnet_ids = local.all_subnets
   }
 
   depends_on = [aws_iam_role_policy_attachment.amazon-eks-cluster-policy]

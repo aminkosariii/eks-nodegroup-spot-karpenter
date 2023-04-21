@@ -1,9 +1,14 @@
+variable "region" {
+  type        = string
+  description = "default region of aws"
+}
+
 variable "cluster_name" {
   type        = string
   description = "eks clsuter name"
 }
-variable "eks_cluster_name"{
-    type = string
+variable "eks_cluster_name" {
+  type = string
 }
 variable "vpc_name" {
   type        = string
@@ -41,29 +46,31 @@ variable "disk_size" {
 }
 
 variable "desired_nodes" {
+  type = number
+
   description = "Desired number of worker nodes"
 }
 
 variable "max_nodes" {
+  type = number
+
   description = "Maximum number of worker nodes"
 }
 
 variable "min_nodes" {
+  type = number
+
   description = "Minimum number of worker nodes"
 }
 
 variable "max_unavailable" {
+  type = number
+
   description = "Number of instance can be unavailable during updates"
 }
 
-variable "node_termination_policy" {
-  type        = list(string)
-  description = "termination policy for node groups"
-}
+
 variable "capacity_type" {
   type        = string
   description = "type of ec2 instances"
-}
-variable "spot_discount_percentage" {
-  description = "discount of spot instances rather than on-demand instances"
 }

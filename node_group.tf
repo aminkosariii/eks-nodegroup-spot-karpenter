@@ -36,25 +36,21 @@ resource "aws_eks_node_group" "private-nodes" {
   disk_size       = var.disk_size
 
 
-  subnet_ids = [
-    element(aws_subnet.priv_subnet.*.id, count.index)
-  ]
+  subnet_ids = local.all_subnets
 
   capacity_type            = var.capacity_type
-  spot_discount_percentage = var.spot_discount_percentage
 
-  instance_types = var.instance_types
+  instance_types = [var.instance_types]
 
 
   scaling_config {
-    desired_size       = var.desired_nodes
-    max_size           = var.max_nodes
-    min_size           = var.min_nodes
-    termination_policy = var.node_termination_policy
+    desired_size = var.desired_nodes
+    max_size     = var.max_nodes
+    min_size     = var.min_nodes
   }
 
   update_config {
-    max_unavailable = 1
+    max_unavailable = var.max_unavailable
   }
 
   labels = {
